@@ -1,0 +1,12 @@
+{
+  "devDependencies": {
+    "@vuepress/plugin-medium-zoom": "^1.4.0",
+    "vuepress-theme-antdocs": "^1.0.0"
+  },
+  "dependencies": {
+    "vuepress": "^1.4.0"
+  },
+  "scripts": {
+     "serve": "vuepress dev ."
+  }
+}
