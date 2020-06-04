@@ -1,3 +1,6 @@
+var path = require('path')
+var fs = require('fs')
+
 module.exports = {
     title: '学习笔记',
     description: '记录学习生涯的各种笔记！',
@@ -9,21 +12,22 @@ module.exports = {
         lineNumbers: true
     },
     smoothScroll: true,
-    theme: 'vuepress-theme-antdocs',
     port: 5000,
     plugins: {
         '@vuepress/medium-zoom': {
-            selector: '.theme-antdocs-content :not(a) > img',
+            selector: ".theme-note-content img",
             options: {
-                margin: 16
+                margin: 0,
+                background: 'rgba(0,0,0,.4)'
             }
         }
     },
+    theme: 'note',
+    evergreen: true,
     themeConfig: {
         logo: '/logo.png',
         smoothScroll: true,
         lastUpdated: 'Last Updated',
-
 
         // 假定是 GitHub. 同时也可以是一个完整的 GitLab URL
         repo: 'vuejs/vuepress',
@@ -43,7 +47,13 @@ module.exports = {
 
         displayAllHeaders: true,
         activeHeaderLinks: false,
-        nav: [
+        nav: [{
+                text: '算法',
+                ariaLabel: '算法',
+                items: [
+                    { text: '数据结构及算法', link: '/algo/' }
+                ]
+            },
             { text: 'Mysql', link: '/mysql/' },
             { text: 'Java', link: '/java/' },
             {
@@ -56,69 +66,98 @@ module.exports = {
                     { text: 'EMScript', link: '/web/EMScript/' },
                 ]
             },
-            {
-                text: '算法',
-                ariaLabel: '算法',
-                items: [
-                    { text: '数据结构及算法', link: '/algo/' }
-                ]
-            }
+            { text: 'Git', link: '/git/' },
         ],
         sidebar: {
-            '/algo/': [{
-                collapsable: false,
-                sidebarDepth: 0,
-                children: [
-                    '',
-                    'Complexity'
-                ]
-            }],
-            '/web/': [
-
-            ],
-            '/java/': [
-
-            ],
-            '/mysql/': [
-
-            ],
+            '/algo/': getAlgoSidebar(),
+            '/web/html/': [],
+            '/web/css/': [],
+            '/web/javascript/': [],
+            '/web/vue/': [],
+            '/web/emscript/': [],
+            '/java/': getJavaSidebar(),
+            '/mysql/': getMysqlSidebar(),
+            "/git/": getGitSidebar()
         }
-        // sidebar: {
-        //     '/algo/': [{
-
-        //             collapsable: false,
-        //             sidebarDepth: 0,
-        //             children: [
-        //                 '',
-        //                 'Complexity'
-        //             ]
-        //         }
-        //     ],
-        //     "/mysql/": [
-        //         ''
-        //     ],
-        //     "/zh/component/": [{
-        //             title: '开发指南',
-        //             collapsable: false,
-        //             sidebarDepth: 0,
-        //             children: [
-        //                 '',
-        //                 'Start'
-        //             ]
-        //         },
-        //         {
-        //             title: '基础组件', // 必要的
-        //             collapsable: false, // 可选的, 默认值是 true,
-        //             sidebarDepth: 0, // 可选的, 默认值是 1
-        //             children: [
-        //                 'Layout',
-        //                 'Container',
-        //                 'Button',
-        //                 'Card',
-        //             ]
-        //         }
-        //     ],
-        // },
     },
 
+}
+
+
+function getAlgoSidebar() {
+    return [{
+            title: '数据结构和算法',
+            collapsable: false,
+            sidebarDepth: 0,
+            children: [
+                '',
+                'Complexity'
+            ]
+        },
+        {
+            title: '机器学习算法',
+            collapsable: false,
+            sidebarDepth: 0,
+            children: [
+                '/algo/ai/'
+            ]
+        }
+    ]
+}
+
+
+function getMysqlSidebar() {
+    return [{
+            title: 'MySQL基础篇',
+            collapsable: false,
+            sidebarDepth: 0,
+            children: [
+                '/mysql/',
+                '/mysql/一条SQL更新语句是如何执行的',
+                '/mysql/Mysql命令',
+            ]
+        },
+        {
+            title: 'MySQL实践篇',
+            collapsable: false,
+            sidebarDepth: 0,
+            children: [
+                '/mysql/practice/',
+                '/mysql/practice/索引'
+            ]
+        }
+    ]
+}
+
+function getJavaSidebar() {
+    return [{
+        title: 'Java基础',
+        collapsable: false,
+        sidebarDepth: 0,
+        children: [
+            ''
+        ]
+    }]
+}
+
+function getGitSidebar() {
+    return [{
+            title: 'Git基础篇',
+            collapsable: false,
+            sidebarDepth: 0,
+            children: [
+                '/git/basis/',
+                '/git/basis/github'
+            ]
+        },
+        {
+            title: 'Git高级篇',
+            collapsable: false,
+            sidebarDepth: 0,
+            children: [
+                '/git/advanced/',
+                '/git/advanced/advenced'
+            ]
+        },
+    ]
 }
